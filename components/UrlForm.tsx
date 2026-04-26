@@ -4,11 +4,13 @@ import { useState } from 'react'
 import type { ValidationResult } from '@/lib/types'
 import H1ValidatorCard from '@/components/h1-validator'
 import ResponseCodeCard from '@/components/200response'
+import CloudflareCard from '@/components/cloudflare'
 import ErrorPopup from '@/components/ErrorPopup'
 
 const ruleComponents: Record<string, React.ComponentType<{ result: ValidationResult }>> = {
   'h1-tag': H1ValidatorCard,
   '200-response': ResponseCodeCard,
+  'cloudflare': CloudflareCard,
 }
 
 function ResultCard({ result }: { result: ValidationResult }) {

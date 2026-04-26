@@ -1,6 +1,7 @@
 import type { NextRequest } from 'next/server'
 import { validate200Response } from '@/components/200response/validator'
 import { validateH1 } from '@/components/h1-validator/validator'
+import { validateCloudflare } from '@/components/cloudflare/validator'
 
 export async function POST(request: NextRequest) {
   let body: { url?: string }
@@ -45,9 +46,13 @@ export async function POST(request: NextRequest) {
     })
   }
 
+  const headers: Record<string, string> = {}
+  res.headers.forEach((value, key) => { headers[key.toLowerCase()] = value })
+
   const html = await res.text()
   const results = [
     validate200Response(res.status),
+    validateCloudflare(headers),
     validateH1(html),
   ]
 
