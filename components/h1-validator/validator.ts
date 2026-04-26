@@ -155,6 +155,20 @@ export function validateH1(html: string): ValidationResult {
     }
   }
 
+  // Check that H1 appears before any H2–H6 in the DOM
+  const subHeadingMatch = html.match(/<(h[2-6])[\s>]/i)
+  if (subHeadingMatch) {
+    const subIndex = html.search(/<h[2-6][\s>]/i)
+    if (subIndex < h1Index) {
+      return {
+        rule: 'h1-tag',
+        status: 'fail',
+        message: `H1 tag appears after a <${subHeadingMatch[1].toLowerCase()}> in the DOM`,
+        details: 'H1 should be the first heading on the page. All H2–H6 tags must come after it.',
+      }
+    }
+  }
+
   const content = matches[0].replace(/<[^>]+>/g, '').trim()
 
   return {
