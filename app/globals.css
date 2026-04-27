@@ -1,10 +1,5 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -12,15 +7,119 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ── Light theme (default) ───────────────────────────── */
+:root {
+  --bg-main:            #f8fafc;
+  --glow-bg:            rgba(37, 99, 235, 0.06);
+
+  --text-primary:       #0f172a;
+  --text-secondary:     #334155;
+  --text-muted:         #64748b;
+  --text-subtle:        #94a3b8;
+
+  --input-bg:           #ffffff;
+  --input-border:       #cbd5e1;
+  --input-focus-ring:   rgba(37, 99, 235, 0.15);
+  --input-focus-border: #2563eb;
+  --placeholder-color:  #94a3b8;
+
+  --btn-shadow:         rgba(37, 99, 235, 0.25);
+  --btn-hover-bg:       #1d4ed8;
+  --btn-disabled-bg:    #bfdbfe;
+  --btn-disabled-fg:    #1d4ed8;
+
+  --accent-border:      #2563eb;
+  --accent-fg:          #2563eb;
+  --accent-hover-bg:    #2563eb;
+
+  --card-pass-bg:       rgba(240, 253, 249, 0.90);
+  --card-pass-border:   rgba(16,  185, 129, 0.35);
+  --card-fail-bg:       rgba(254, 242, 242, 0.90);
+  --card-fail-border:   rgba(239, 68,  68,  0.35);
+
+  --icon-pass-bg:       rgba(16,  185, 129, 0.15);
+  --icon-pass-fg:       #059669;
+  --icon-fail-bg:       rgba(239, 68,  68,  0.12);
+  --icon-fail-fg:       #dc2626;
+
+  --error-border:       rgba(239, 68,  68,  0.35);
+  --error-bg:           rgba(254, 242, 242, 0.90);
+  --error-fg:           #dc2626;
+
+  --popup-bg:           #ffffff;
+  --popup-border:       #e2e8f0;
+  --popup-close-bg:     #f1f5f9;
+  --popup-close-fg:     #334155;
+  --popup-close-hover:  #e2e8f0;
+  --popup-close-hfg:    #0f172a;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ── Dark theme ──────────────────────────────────────── */
+[data-theme="dark"] {
+  --bg-main:            #020617;
+  --glow-bg:            rgba(37, 99, 235, 0.10);
+
+  --text-primary:       #ffffff;
+  --text-secondary:     #cbd5e1;
+  --text-muted:         #94a3b8;
+  --text-subtle:        #64748b;
+
+  --input-bg:           rgba(30, 41, 59, 0.60);
+  --input-border:       #334155;
+  --input-focus-ring:   rgba(59, 130, 246, 0.30);
+  --input-focus-border: #3b82f6;
+  --placeholder-color:  #64748b;
+
+  --btn-shadow:         rgba(30, 58, 138, 0.30);
+  --btn-hover-bg:       #3b82f6;
+  --btn-disabled-bg:    #1e3a8a;
+  --btn-disabled-fg:    #60a5fa;
+
+  --accent-border:      #3b82f6;
+  --accent-fg:          #60a5fa;
+  --accent-hover-bg:    #3b82f6;
+
+  --card-pass-bg:       rgba(6,  78,  59,  0.30);
+  --card-pass-border:   rgba(4,  120, 87,  0.40);
+  --card-fail-bg:       rgba(69, 10,  10,  0.30);
+  --card-fail-border:   rgba(185, 28, 28,  0.40);
+
+  --icon-pass-bg:       rgba(16,  185, 129, 0.20);
+  --icon-pass-fg:       #34d399;
+  --icon-fail-bg:       rgba(239, 68,  68,  0.20);
+  --icon-fail-fg:       #f87171;
+
+  --error-border:       rgba(185, 28, 28,  0.50);
+  --error-bg:           rgba(69,  10,  10,  0.40);
+  --error-fg:           #fca5a5;
+
+  --popup-bg:           #0f172a;
+  --popup-border:       #334155;
+  --popup-close-bg:     #1e293b;
+  --popup-close-fg:     #cbd5e1;
+  --popup-close-hover:  #334155;
+  --popup-close-hfg:    #ffffff;
 }
+
+/* ── Pseudo-state helpers (can't be inlined) ─────────── */
+.t-input::placeholder      { color: var(--placeholder-color); }
+.t-input:focus             { outline: none; border-color: var(--input-focus-border); box-shadow: 0 0 0 2px var(--input-focus-ring); }
+.t-btn:hover:not(:disabled){ background: var(--btn-hover-bg); }
+.t-btn:disabled            { background: var(--btn-disabled-bg); color: var(--btn-disabled-fg); cursor: not-allowed; }
+.logo-img                  { filter: brightness(0) invert(1); }
+[data-theme="light"] .logo-img { filter: brightness(0); }
+/* Logo inside the black pill is always white */
+.header-pill .logo-img     { filter: brightness(0) invert(1) !important; }
+/* Toggle and Book a Call inside the black pill always use white-on-dark contrast */
+.header-pill .t-toggle       { border-color: #ffffff; color: #ffffff; cursor: pointer; }
+.header-pill .t-toggle:hover { background: rgba(255,255,255,0.15); border-color: #ffffff; color: #ffffff; }
+@keyframes pulse-ring {
+  0%   { transform: scale(1);    opacity: 0.6; }
+  100% { transform: scale(1.18); opacity: 0; }
+}
+.header-pill .book-call-btn          { position: relative; border-color: #ffffff; color: #ffffff; cursor: pointer; }
+.header-pill .book-call-btn::before  { content: ''; position: absolute; inset: -2px; border-radius: 9999px; border: 1.5px solid #ffffff; animation: pulse-ring 1.8s ease-out infinite; }
+
+.t-toggle                  { background: transparent; border-color: var(--input-border); color: var(--text-muted); }
+.t-toggle:hover            { background: var(--accent-border); border-color: var(--accent-border); color: #ffffff; }
+.t-close:hover             { background: var(--popup-close-hover); color: var(--popup-close-hfg); }

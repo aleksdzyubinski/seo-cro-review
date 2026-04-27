@@ -23,8 +23,14 @@ function ResultCard({ result }: { result: ValidationResult }) {
 
   const pass = result.status === 'pass'
   return (
-    <div className={`rounded-2xl border p-5 ${pass ? 'border-emerald-700/40 bg-emerald-950/30' : 'border-red-700/40 bg-red-950/30'}`}>
-      <p className="text-sm text-slate-300">{result.message}</p>
+    <div
+      className="rounded-2xl border p-5"
+      style={{
+        background:  pass ? 'var(--card-pass-bg)'    : 'var(--card-fail-bg)',
+        borderColor: pass ? 'var(--card-pass-border)' : 'var(--card-fail-border)',
+      }}
+    >
+      <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>{result.message}</p>
     </div>
   )
 }
@@ -107,12 +113,18 @@ export default function UrlForm() {
             onChange={(e) => setUrl(e.target.value)}
             placeholder="https://example.com"
             required
-            className="min-w-0 flex-1 rounded-xl border border-slate-700 bg-slate-800/60 px-5 py-4 text-base text-white placeholder-slate-500 outline-none ring-0 transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30"
+            className="t-input min-w-0 flex-1 rounded-xl border px-5 py-4 text-base outline-none ring-0 transition"
+            style={{
+              background:  'var(--input-bg)',
+              borderColor: 'var(--input-border)',
+              color:       'var(--text-primary)',
+            }}
           />
           <button
             type="submit"
             disabled={loading}
-            className="shrink-0 rounded-xl bg-blue-600 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-blue-900/30 transition hover:bg-blue-500 disabled:cursor-not-allowed disabled:bg-blue-900 disabled:text-blue-400"
+            className="t-btn shrink-0 rounded-xl bg-blue-600 px-8 py-4 text-base font-semibold text-white shadow-lg transition"
+            style={{ boxShadow: `0 10px 15px -3px var(--btn-shadow)` }}
           >
             {loading ? (
               <span className="flex items-center gap-2">
@@ -129,7 +141,14 @@ export default function UrlForm() {
         </form>
 
         {error && (
-          <div className="mt-6 rounded-xl border border-red-700/50 bg-red-950/40 px-5 py-4 text-sm text-red-300">
+          <div
+            className="mt-6 rounded-xl border px-5 py-4 text-sm"
+            style={{
+              borderColor: 'var(--error-border)',
+              background:  'var(--error-bg)',
+              color:       'var(--error-fg)',
+            }}
+          >
             {error}
           </div>
         )}
@@ -138,20 +157,20 @@ export default function UrlForm() {
           <div className="mt-8">
             <div className="mb-5 flex items-center justify-between">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-widest text-slate-500">
+                <p className="text-xs font-semibold uppercase tracking-widest" style={{ color: 'var(--text-subtle)' }}>
                   Results for
                 </p>
-                <p className="mt-0.5 truncate text-sm font-medium text-slate-300">
+                <p className="mt-0.5 truncate text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
                   {analyzedUrl}
                 </p>
               </div>
               <div className="flex gap-3 text-sm">
-                <span className="flex items-center gap-1.5 font-semibold text-emerald-400">
-                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/20 text-xs">✓</span>
+                <span className="flex items-center gap-1.5 font-semibold" style={{ color: 'var(--icon-pass-fg)' }}>
+                  <span className="flex h-5 w-5 items-center justify-center rounded-full text-xs" style={{ background: 'var(--icon-pass-bg)' }}>✓</span>
                   {passCount} passed
                 </span>
-                <span className="flex items-center gap-1.5 font-semibold text-red-400">
-                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-red-500/20 text-xs">✗</span>
+                <span className="flex items-center gap-1.5 font-semibold" style={{ color: 'var(--icon-fail-fg)' }}>
+                  <span className="flex h-5 w-5 items-center justify-center rounded-full text-xs" style={{ background: 'var(--icon-fail-bg)' }}>✗</span>
                   {failCount} failed
                 </span>
               </div>
