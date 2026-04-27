@@ -5,12 +5,14 @@ import type { ValidationResult } from '@/lib/types'
 import H1ValidatorCard from '@/components/h1-validator'
 import ResponseCodeCard from '@/components/200response'
 import CloudflareCard from '@/components/cloudflare'
+import MagentoVersionCard from '@/components/magentoVersion'
 import ErrorPopup from '@/components/ErrorPopup'
 
 const ruleComponents: Record<string, React.ComponentType<{ result: ValidationResult }>> = {
   'h1-tag': H1ValidatorCard,
   '200-response': ResponseCodeCard,
   'cloudflare': CloudflareCard,
+  'magento-version': MagentoVersionCard,
 }
 
 function ResultCard({ result }: { result: ValidationResult }) {
@@ -26,7 +28,9 @@ function ResultCard({ result }: { result: ValidationResult }) {
 }
 
 interface PopupState {
-  statusCode: number
+  title: string
+  subtitle: string
+  statusCode?: number
   message: string
 }
 
@@ -60,7 +64,12 @@ export default function UrlForm() {
       }
 
       if (data.type === 'http_status_error') {
-        setPopup({ statusCode: data.statusCode, message: data.message })
+        setPopup({
+          title: 'Validation Stopped',
+          subtitle: 'The site did not return an acceptable HTTP status code.',
+          statusCode: data.statusCode,
+          message: data.message,
+        })
         return
       }
 
@@ -80,6 +89,8 @@ export default function UrlForm() {
     <>
       {popup && (
         <ErrorPopup
+          title={popup.title}
+          subtitle={popup.subtitle}
           statusCode={popup.statusCode}
           message={popup.message}
           onClose={() => setPopup(null)}

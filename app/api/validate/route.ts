@@ -2,6 +2,7 @@ import type { NextRequest } from 'next/server'
 import { validate200Response } from '@/components/200response/validator'
 import { validateH1 } from '@/components/h1-validator/validator'
 import { validateCloudflare } from '@/components/cloudflare/validator'
+import { validateMagentoVersion } from '@/components/magentoVersion/validator'
 
 export async function POST(request: NextRequest) {
   let body: { url?: string }
@@ -52,6 +53,7 @@ export async function POST(request: NextRequest) {
   const html = await res.text()
   const results = [
     validate200Response(res.status),
+    await validateMagentoVersion(parsed.origin),
     validateCloudflare(headers),
     validateH1(html),
   ]

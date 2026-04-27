@@ -1,12 +1,14 @@
 'use client'
 
 interface Props {
-  statusCode: number
+  title: string
+  subtitle: string
+  statusCode?: number
   message: string
   onClose: () => void
 }
 
-export default function ErrorPopup({ statusCode, message, onClose }: Props) {
+export default function ErrorPopup({ title, subtitle, statusCode, message, onClose }: Props) {
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center p-4"
@@ -22,21 +24,21 @@ export default function ErrorPopup({ statusCode, message, onClose }: Props) {
           <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-red-500/15 text-3xl text-red-400">
             ✗
           </div>
-          <h2 className="text-xl font-bold text-white">Validation Stopped</h2>
-          <p className="mt-2 text-sm text-slate-400">
-            The site did not return an acceptable HTTP status code.
-          </p>
+          <h2 className="text-xl font-bold text-white">{title}</h2>
+          <p className="mt-2 text-sm text-slate-400">{subtitle}</p>
         </div>
 
         <div className="mb-6 rounded-xl border border-red-700/40 bg-red-950/30 px-5 py-4">
-          <div className="mb-1 flex items-center gap-2">
-            <span className="text-xs font-semibold uppercase tracking-widest text-slate-500">
-              Status Code
-            </span>
-            <span className="rounded-full bg-red-500/20 px-2.5 py-0.5 text-sm font-bold text-red-400">
-              {statusCode}
-            </span>
-          </div>
+          {statusCode !== undefined && (
+            <div className="mb-1 flex items-center gap-2">
+              <span className="text-xs font-semibold uppercase tracking-widest text-slate-500">
+                Status Code
+              </span>
+              <span className="rounded-full bg-red-500/20 px-2.5 py-0.5 text-sm font-bold text-red-400">
+                {statusCode}
+              </span>
+            </div>
+          )}
           <p className="text-sm text-slate-300">{message}</p>
         </div>
 
