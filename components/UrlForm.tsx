@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import type { ValidationResult } from '@/lib/types'
+import { useReport } from '@/components/ReportContext'
 import H1ValidatorCard from '@/components/h1-validator'
 import ResponseCodeCard from '@/components/200response'
 import CloudflareCard from '@/components/cloudflare'
@@ -47,6 +48,7 @@ interface PopupState {
 }
 
 export default function UrlForm() {
+  const { setReport } = useReport()
   const [url, setUrl] = useState('')
   const [loading, setLoading] = useState(false)
   const [results, setResults] = useState<ValidationResult[] | null>(null)
@@ -87,6 +89,7 @@ export default function UrlForm() {
 
       setAnalyzedUrl(data.url)
       setResults(data.results)
+      setReport(data.results, data.url)
     } catch {
       setError('Failed to reach the server. Please try again.')
     } finally {

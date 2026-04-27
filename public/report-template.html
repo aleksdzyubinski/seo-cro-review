@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>MageCloud Report — {{WEBSITE_NAME}}</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #fff; color: #0f172a; }
+
+    /* ── Header ── */
+    .page-header { display: flex; align-items: center; padding: 28px 40px; border-bottom: 1.5px solid #e2e8f0; }
+    .logo { height: 36px; filter: brightness(0); }
+
+    /* ── Title ── */
+    .title-section { text-align: center; padding: 36px 40px 20px; }
+    .title-section h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; }
+    .title-section .url { font-size: 14px; color: #64748b; margin-top: 8px; font-family: monospace; }
+    .title-section .date { font-size: 12px; color: #94a3b8; margin-top: 4px; }
+
+    /* ── Custom intro — add your text here ── */
+    .intro-section { padding: 0 40px 28px; }
+    .intro-text { font-size: 14px; color: #334155; line-height: 1.7; }
+
+    /* ── Summary ── */
+    .summary { display: flex; gap: 12px; padding: 0 40px 24px; }
+    .summary-pill { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; padding: 7px 14px; border-radius: 8px; }
+    .summary-pill.pass { background: rgba(16,185,129,0.10); color: #059669; }
+    .summary-pill.fail { background: rgba(239,68,68,0.08);  color: #dc2626; }
+
+    /* ── Result cards ── */
+    .results { padding: 0 40px; display: flex; flex-direction: column; gap: 12px; }
+
+    .card { border-radius: 12px; border: 1.5px solid; padding: 16px 20px; display: flex; align-items: flex-start; gap: 14px; break-inside: avoid; }
+    .card.pass { background: rgba(240,253,249,0.9); border-color: rgba(16,185,129,0.35); }
+    .card.fail { background: rgba(254,242,242,0.9); border-color: rgba(239,68,68,0.35); }
+
+    .icon { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; flex-shrink: 0; }
+    .card.pass .icon { background: rgba(16,185,129,0.15); color: #059669; }
+    .card.fail .icon { background: rgba(239,68,68,0.12);  color: #dc2626; }
+
+    .card-body { flex: 1; padding-top: 2px; }
+    .card-title-row { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; }
+    .card-title { font-size: 15px; font-weight: 700; }
+    .badge { padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+    .card.pass .badge { background: rgba(16,185,129,0.15); color: #059669; }
+    .card.fail .badge { background: rgba(239,68,68,0.12);  color: #dc2626; }
+    .message { font-size: 13px; color: #334155; line-height: 1.5; }
+    .details { font-size: 12px; color: #64748b; margin-top: 3px; line-height: 1.5; }
+
+    /* ── Custom footer — add your text here ── */
+    .footer-section { padding: 36px 40px 48px; border-top: 1px solid #e2e8f0; margin-top: 36px; }
+    .footer-text { font-size: 13px; color: #64748b; line-height: 1.7; }
+
+    @media print {
+      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       HEADER
+  ═══════════════════════════════════════════ -->
+  <div class="page-header">
+    <img
+      src="https://magecloud.agency/wp-content/themes/magecloudtheme/images/logo_5.png"
+      class="logo"
+      alt="MageCloud"
+    />
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       TITLE — populated from scan data
+  ═══════════════════════════════════════════ -->
+  <div class="title-section">
+    <h1>MageCloud Report for {{WEBSITE_NAME}}</h1>
+    <div class="url">{{ANALYZED_URL}}</div>
+    <div class="date">Generated on {{DATE}}</div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       INTRO TEXT — add your custom text here
+  ═══════════════════════════════════════════ -->
+  <div class="intro-section">
+    <p class="intro-text">
+      <!-- Add introductory notes, client context, or executive summary here. -->
+    </p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SUMMARY — populated from scan data
+  ═══════════════════════════════════════════ -->
+  <div class="summary">
+    <div class="summary-pill pass">✓ {{PASS_COUNT}} passed</div>
+    <div class="summary-pill fail">✗ {{FAIL_COUNT}} failed</div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       RESULTS — rendered from SCAN_RESULTS array.
+       Each item: { title, message, details, result }
+       result = 'pass' | 'fail'
+       Customise the card markup in renderCard() below.
+  ═══════════════════════════════════════════ -->
+  <div class="results" id="results-container"></div>
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER TEXT — add your custom text here
+  ═══════════════════════════════════════════ -->
+  <div class="footer-section">
+    <p class="footer-text">
+      <!-- Add recommendations, next steps, contact details, or disclaimers here. -->
+    </p>
+  </div>
+
+  <script>
+    /* ── Scan results injected by the app ── */
+    var SCAN_RESULTS = {{RESULTS}};
+
+    /* ── Card renderer — edit markup here if needed ── */
+    function renderCard(item) {
+      var icon  = item.result === 'pass' ? '✓' : '✗';
+      var badge = item.result === 'pass' ? 'PASS' : 'FAIL';
+      return [
+        '<div class="card ' + item.result + '">',
+        '  <div class="icon">' + icon + '</div>',
+        '  <div class="card-body">',
+        '    <div class="card-title-row">',
+        '      <span class="card-title">' + item.title + '</span>',
+        '      <span class="badge">' + badge + '</span>',
+        '    </div>',
+        '    <div class="message">' + item.message + '</div>',
+        item.details ? '<div class="details">' + item.details + '</div>' : '',
+        '  </div>',
+        '</div>',
+      ].join('\n');
+    }
+
+    /* ── Render all cards into the container ── */
+    document.getElementById('results-container').innerHTML =
+      SCAN_RESULTS.map(renderCard).join('\n');
+
+    window.print();
+  </script>
+</body>
+</html>
