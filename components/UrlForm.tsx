@@ -8,6 +8,7 @@ import CloudflareCard from '@/components/cloudflare'
 import MagentoVersionCard from '@/components/magentoVersion'
 import RobotsCard from '@/components/robots'
 import XMagentoCacheDebugCard from '@/components/xMagentoCacheDebug'
+import MetaPixelCard from '@/components/metaPixel'
 import ErrorPopup from '@/components/ErrorPopup'
 
 const ruleComponents: Record<string, React.ComponentType<{ result: ValidationResult }>> = {
@@ -17,6 +18,7 @@ const ruleComponents: Record<string, React.ComponentType<{ result: ValidationRes
   'magento-version': MagentoVersionCard,
   'robots': RobotsCard,
   'x-magento-cache-debug': XMagentoCacheDebugCard,
+  'meta-pixel': MetaPixelCard,
 }
 
 function ResultCard({ result }: { result: ValidationResult }) {

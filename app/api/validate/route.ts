@@ -1,6 +1,7 @@
 import type { NextRequest } from 'next/server'
 import { validate200Response } from '@/components/200response/validator'
 import { validateH1 } from '@/components/h1-validator/validator'
+import { validateMetaPixel } from '@/components/metaPixel/validator'
 import { validateCloudflare } from '@/components/cloudflare/validator'
 import { validateXMagentoCacheDebug } from '@/components/xMagentoCacheDebug/validator'
 import { validateMagentoVersion } from '@/components/magentoVersion/validator'
@@ -60,6 +61,7 @@ export async function POST(request: NextRequest) {
     validateCloudflare(headers),
     validateXMagentoCacheDebug(headers),
     validateH1(html),
+    validateMetaPixel(html),
   ]
 
   return Response.json({ url, results })
