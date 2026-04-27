@@ -39,7 +39,7 @@ export default function Home() {
             <h1 className="inline-flex items-center gap-3 text-5xl font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>
               MageCloud
               <img src="/magento-2-logo.svg" alt="Magento" width={40} height={40} className="inline-block" />
-              <span style={{ color: 'var(--accent-fg)' }}>SiteAudit</span>
+              <span style={{ color: 'var(--accent-fg)' }}>Site Audit</span>
             </h1>
             <p className="mt-4 inline-flex flex-wrap items-center justify-center gap-x-2 text-lg" style={{ color: 'var(--text-muted)' }}>
               Validate your Magento

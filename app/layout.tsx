@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MageCloud SiteAudit",
+  title: "MageCloud Site Audit",
   description: "Validate your Magento store against SEO and accessibility best practices.",
 };
 

@@ -2,6 +2,7 @@ import type { NextRequest } from 'next/server'
 import { validate200Response } from '@/components/200response/validator'
 import { validateH1 } from '@/components/h1-validator/validator'
 import { validateCloudflare } from '@/components/cloudflare/validator'
+import { validateXMagentoCacheDebug } from '@/components/xMagentoCacheDebug/validator'
 import { validateMagentoVersion } from '@/components/magentoVersion/validator'
 import { validateRobots } from '@/components/robots/validator'
 
@@ -57,6 +58,7 @@ export async function POST(request: NextRequest) {
     await validateMagentoVersion(parsed.origin),
     await validateRobots(parsed.origin),
     validateCloudflare(headers),
+    validateXMagentoCacheDebug(headers),
     validateH1(html),
   ]
 
