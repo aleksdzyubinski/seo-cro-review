@@ -18,7 +18,7 @@
     .title-section .date { font-size: 12px; color: #94a3b8; margin-top: 4px; }
 
     /* ── Custom intro — add your text here ── */
-    .intro-section { padding: 0 40px 28px; }
+    .intro-section { padding: 0 40px 28px; text-align: center }
     .intro-text { font-size: 14px; color: #334155; line-height: 1.7; }
 
     /* ── Summary ── */
@@ -38,19 +38,23 @@
     .card.pass .icon { background: rgba(16,185,129,0.15); color: #059669; }
     .card.fail .icon { background: rgba(239,68,68,0.12);  color: #dc2626; }
 
-    .card-body { flex: 1; padding-top: 2px; }
+    .card-body { flex: 1; min-width: 0; padding-top: 2px; }
     .card-title-row { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; }
     .card-title { font-size: 15px; font-weight: 700; }
     .badge { padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
     .card.pass .badge { background: rgba(16,185,129,0.15); color: #059669; }
     .card.fail .badge { background: rgba(239,68,68,0.12);  color: #dc2626; }
     .message { font-size: 13px; color: #334155; line-height: 1.5; }
-    .details { font-size: 12px; color: #64748b; margin-top: 3px; line-height: 1.5; }
+    .details { font-size: 14px; color: #000000; margin-top: 3px; line-height: 1.5; overflow-wrap: anywhere; word-break: break-word; }
 
     /* ── Custom footer — add your text here ── */
     .footer-section { padding: 36px 40px 48px; border-top: 1px solid #e2e8f0; margin-top: 36px; }
     .footer-text { font-size: 13px; color: #64748b; line-height: 1.7; }
 
+    h3 {
+      text-align: center;
+      padding-top: 30px;
+    }
     @media print {
       body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     }
@@ -68,23 +72,17 @@
       alt="MageCloud"
     />
   </div>
+  <div class="intro-section">
+    <p class="intro-text">
+    <h3>We build and scale eCommerce stores worldwide.</h3><br>
+    With over a decade of experience, we consistently generate seven-figure revenues for online store owners in highly competitive markets.
+    </p>
+  </div>
 
-  <!-- ═══════════════════════════════════════════
-       TITLE — populated from scan data
-  ═══════════════════════════════════════════ -->
   <div class="title-section">
     <h1>MageCloud Report for {{WEBSITE_NAME}}</h1>
     <div class="url">{{ANALYZED_URL}}</div>
     <div class="date">Generated on {{DATE}}</div>
-  </div>
-
-  <!-- ═══════════════════════════════════════════
-       INTRO TEXT — add your custom text here
-  ═══════════════════════════════════════════ -->
-  <div class="intro-section">
-    <p class="intro-text">
-      <!-- Add introductory notes, client context, or executive summary here. -->
-    </p>
   </div>
 
   <!-- ═══════════════════════════════════════════
@@ -137,7 +135,7 @@
 
     /* ── Render all cards into the container ── */
     document.getElementById('results-container').innerHTML =
-      SCAN_RESULTS.map(renderCard).join('\n');
+      Object.values(SCAN_RESULTS).map(renderCard).join('\n');
 
     window.print();
   </script>

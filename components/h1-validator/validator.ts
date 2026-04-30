@@ -110,7 +110,8 @@ export function validateH1(html: string): ValidationResult {
       rule: 'h1-tag',
       status: 'fail',
       message: 'No H1 tag found on the page',
-      details: 'Every page should have exactly one H1 tag for proper SEO and accessibility.',
+      details: 'Pages which have a missing <h1>, the content is empty or has a whitespace. The <h1> should describe the main title and purpose of the page and are considered to be one of the stronger on-page ranking signals.\n' +
+          'Ensure important pages have concise, descriptive and unique headings to help users, and enable search engines to score and rank the page for relevant search queries.',
     }
   }
 

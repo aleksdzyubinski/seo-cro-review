@@ -35,13 +35,19 @@ export default function DownloadReportButton() {
     const passCount = results!.filter(r => r.status === 'pass').length
     const failCount = results!.filter(r => r.status !== 'pass').length
 
+    fetch('/api/log', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url: analyzedUrl, timestamp: new Date().toISOString(), results: Object.fromEntries(results!.map(r => [r.rule, toReportItem(r)])) }),
+    })
+
     const html = template
       .replace(/\{\{WEBSITE_NAME\}\}/g,  hostname)
       .replace(/\{\{ANALYZED_URL\}\}/g,  analyzedUrl)
       .replace(/\{\{DATE\}\}/g,          date)
       .replace(/\{\{PASS_COUNT\}\}/g,    String(passCount))
       .replace(/\{\{FAIL_COUNT\}\}/g,    String(failCount))
-      .replace('{{RESULTS}}',            JSON.stringify(results!.map(toReportItem), null, 2))
+      .replace('{{RESULTS}}',            JSON.stringify(Object.fromEntries(results!.map(r => [r.rule, toReportItem(r)])), null, 2))
 
     const win = window.open('', '_blank')
     if (!win) return

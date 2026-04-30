@@ -40,7 +40,7 @@ export default function ValidationCard({ title, result }: Props) {
         </div>
         <p className="mt-1 text-sm" style={{ color: 'var(--text-secondary)' }}>{result.message}</p>
         {result.details && (
-          <p className="mt-1 truncate text-xs" style={{ color: 'var(--text-subtle)' }}>{result.details}</p>
+          <p className="mt-1 text-xs" style={{ color: 'var(--text-secondary)' }}>{result.details}</p>
         )}
       </div>
     </div>
