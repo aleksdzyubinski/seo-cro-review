@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Site Audit — decorative-urns.com</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --page-w:       794px;
+  --page-h:       1123px;
+
+  /* Header gradient palette */
+  --hero-deep:    #06071A;
+  --hero-mid:     #0C1F7A;
+  --hero-bright:  #1040C0;
+  --hero-cyan:    #0A8FC0;
+
+  /* Brand */
+  --brand-blue:   #1B3BEE;
+  --brand-violet: #661CED;
+  --grad-violet:  #5524EF;
+  --brand-orange: #f97316;
+
+  /* Page surface */
+  --off-white:    #F1F1F1;
+  --ink:          #0A0A14;
+  --muted:        #5A5A6E;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #181820;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 40px 20px 60px;
+  color: var(--ink);
+}
+
+/* ── Page shell ─────────────────────────────────────────── */
+.page {
+  width: var(--page-w);
+  min-height: var(--page-h);
+  background: var(--off-white);
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ── Gradient header (full — cover page) ─────────────────── */
+.page__header {
+  position: relative;
+  height: 280px;
+  flex-shrink: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 30%, var(--hero-bright) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 50% at 15% 75%, var(--hero-cyan)   0%, transparent 50%),
+    radial-gradient(ellipse 70% 50% at 80% 40%, var(--hero-mid)    0%, transparent 60%),
+    linear-gradient(135deg, var(--hero-deep) 0%, var(--hero-mid) 45%, var(--hero-deep) 100%);
+  overflow: hidden;
+}
+
+/* Light streak */
+.page__header::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    rgba(10, 154, 215, 0.35) 42%,
+    rgba(120, 200, 255, 0.55) 48%,
+    rgba(10, 154, 215, 0.35) 54%,
+    transparent 66%
+  );
+  mix-blend-mode: screen;
+}
+
+/* Grain overlay */
+.page__header::after {
+  content: "";
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/></svg>");
+  opacity: 0.22;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+/* ── Gradient header (small — inner pages) ───────────────── */
+.page__header--sm {
+  height: 120px;
+  background:
+    radial-gradient(ellipse 100% 200% at -5% 50%, var(--sec-color, var(--hero-bright)) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 120% at 90% 50%, var(--hero-mid) 0%, transparent 60%),
+    linear-gradient(135deg, var(--hero-deep) 0%, var(--hero-mid) 100%);
+}
+
+/* ── Top bar ─────────────────────────────────────────────── */
+.page__topbar {
+  position: relative;
+  z-index: 2;
+  padding: 32px 52px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.wordmark {
+  font-family: "Inter", "Helvetica Neue", sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--off-white);
+  letter-spacing: -1px;
+  line-height: 1;
+}
+
+.meta {
+  color: rgba(241, 241, 241, 0.65);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+/* ── Cover title block ───────────────────────────────────── */
+.page__title-wrap {
+  position: relative;
+  z-index: 2;
+  padding: 24px 52px 0;
+}
+
+.page__eyebrow {
+  color: rgba(241, 241, 241, 0.7);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.page__title {
+  color: var(--off-white);
+  font-size: 62px;
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -2.5px;
+}
+
+.page__title-sub {
+  color: rgba(241, 241, 241, 0.75);
+  font-size: 20px;
+  font-weight: 300;
+  margin-top: 14px;
+  letter-spacing: -0.3px;
+  font-family: "SF Mono", "Fira Code", Consolas, monospace;
+}
+
+/* Small title for inner-page headers */
+.page__title-wrap--sm {
+  padding: 20px 52px 0;
+}
+
+.page__title--sm {
+  font-size: 34px;
+  letter-spacing: -1.2px;
+  line-height: 1;
+}
+
+/* ── Body ────────────────────────────────────────────────── */
+.page__body {
+  flex: 1;
+  padding: 52px 52px 40px;
+  background: var(--off-white);
+}
+
+/* ── Section label (left-border rule) ───────────────────── */
+.section-label {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--brand-blue);
+  margin-bottom: 14px;
+  border-left: 3px solid var(--brand-blue);
+  padding-left: 10px;
+}
+
+/* ── Accent bar ──────────────────────────────────────────── */
+.accent-bar {
+  display: flex;
+  height: 5px;
+  margin: 28px 0 36px;
+  border-radius: 999px;
+  overflow: hidden;
+}
+.accent-bar span { flex: 1; }
+.accent-bar span:nth-child(1) { background: var(--brand-blue); }
+.accent-bar span:nth-child(2) { background: var(--grad-violet); }
+.accent-bar span:nth-child(3) { background: var(--brand-violet); }
+
+/* ── Cover section badges ────────────────────────────────── */
+.cover-sections {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+.cover-section-badge {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink);
+  background: rgba(10, 10, 20, 0.07);
+  border: 1px solid rgba(10, 10, 20, 0.1);
+  padding: 6px 13px;
+  border-radius: 6px;
+}
+.cover-section-badge::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background: var(--badge-color, var(--brand-blue));
+  flex-shrink: 0;
+}
+
+.cover-tagline {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.65;
+  max-width: 520px;
+}
+
+/* ── TOC ─────────────────────────────────────────────────── */
+.toc-list {
+  list-style: none;
+  margin-top: 24px;
+}
+.toc-list li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(10, 10, 20, 0.08);
+}
+.toc-list li:last-child { border-bottom: none; }
+.toc-num {
+  font-size: 11px;
+  font-weight: 700;
+  color: #C0C0CC;
+  letter-spacing: .04em;
+  width: 22px;
+  flex-shrink: 0;
+}
+.toc-pip {
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.toc-list a {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+}
+.toc-list a:hover { color: var(--brand-blue); }
+
+/* ── Markdown body typography ────────────────────────────── */
+.sec-body h1 { display: none; }
+
+.sec-body h2 {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -.6px;
+  color: var(--ink);
+  margin: 36px 0 12px;
+}
+.sec-body h2:first-child { margin-top: 0; }
+
+.sec-body h3 {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #2A2A38;
+  margin: 22px 0 7px;
+}
+.sec-body h4 {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--muted);
+  margin: 16px 0 5px;
+}
+
+.sec-body p   { font-size: 14px; color: #2A2A38; line-height: 1.65; margin: 0 0 13px; }
+.sec-body ul,
+.sec-body ol  { font-size: 14px; color: #2A2A38; margin: 0 0 13px 20px; }
+.sec-body li  { margin-bottom: 4px; line-height: 1.6; }
+.sec-body li > ul,
+.sec-body li > ol { margin-top: 4px; margin-bottom: 0; }
+
+.sec-body strong { font-weight: 700; color: var(--ink); }
+.sec-body em { font-style: italic; }
+
+.sec-body a { color: var(--brand-blue); text-decoration: none; }
+.sec-body a:hover { text-decoration: underline; }
+
+.sec-body hr {
+  border: none;
+  border-top: 1.5px solid rgba(10, 10, 20, 0.1);
+  margin: 28px 0;
+}
+
+.sec-body blockquote {
+  border-left: 3px solid var(--brand-orange);
+  padding: 12px 18px;
+  margin: 16px 0;
+  background: rgba(249, 115, 22, 0.06);
+  border-radius: 0 6px 6px 0;
+}
+.sec-body blockquote p { margin: 0; color: #7A3010; font-style: italic; }
+
+/* Code */
+.sec-body pre {
+  background: var(--ink);
+  color: #E2E8F0;
+  padding: 20px 24px;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 14px 0 18px;
+  font-size: 12px;
+  line-height: 1.65;
+}
+.sec-body pre code { background: none; color: inherit; padding: 0; font-size: inherit; }
+.sec-body code {
+  font-family: "SF Mono", "Fira Code", "Cascadia Code", Consolas, monospace;
+}
+.sec-body :not(pre) > code {
+  background: rgba(10, 10, 20, 0.07);
+  color: #9D174D;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+/* Tables */
+.sec-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 14px 0 20px;
+  font-size: 12.5px;
+  border: 1px solid rgba(10, 10, 20, 0.1);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.sec-body th {
+  background: rgba(10, 10, 20, 0.05);
+  font-weight: 700;
+  text-align: left;
+  padding: 9px 14px;
+  color: var(--ink);
+  border-bottom: 1.5px solid rgba(10, 10, 20, 0.1);
+}
+.sec-body td {
+  padding: 9px 14px;
+  border-bottom: 1px solid rgba(10, 10, 20, 0.06);
+  color: #2A2A38;
+  vertical-align: top;
+}
+.sec-body tr:last-child td { border-bottom: none; }
+
+/* Impact badges */
+.badge-critical { display: inline-flex; align-items: center; background: #FEF2F2; color: #DC2626; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; letter-spacing: .05em; text-transform: uppercase; white-space: nowrap; }
+.badge-high     { display: inline-flex; align-items: center; background: #FFF7ED; color: #EA580C; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; letter-spacing: .05em; text-transform: uppercase; white-space: nowrap; }
+.badge-medium   { display: inline-flex; align-items: center; background: #FEFCE8; color: #CA8A04; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; letter-spacing: .05em; text-transform: uppercase; white-space: nowrap; }
+.badge-low      { display: inline-flex; align-items: center; background: #F0FDF4; color: #16A34A; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; letter-spacing: .05em; text-transform: uppercase; white-space: nowrap; }
+
+/* ── Footer ──────────────────────────────────────────────── */
+.page__footer {
+  padding: 20px 52px;
+  background: var(--off-white);
+  color: var(--muted);
+  border-top: 1px solid rgba(10, 10, 20, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+.page__footer-brand {
+  color: var(--ink);
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  text-transform: none;
+  font-size: 13px;
+}
+.page__footer-num {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Print ───────────────────────────────────────────────── */
+@media print {
+  body { background: var(--off-white); padding: 0; gap: 0; }
+  .page { box-shadow: none; width: 100%; page-break-after: always; }
+  .page:last-child { page-break-after: auto; }
+  .sec-body pre { white-space: pre-wrap; word-break: break-word; }
+  a[href]::after { content: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════
+     PAGE 1 — Cover
+═══════════════════════════════════════════════════════ -->
+<article class="page">
+  <header class="page__header">
+    <div class="page__topbar">
+      <span class="wordmark">comerix</span>
+      <span class="meta">25 May 2026 &middot; Site Audit</span>
+    </div>
+    <div class="page__title-wrap">
+      <div class="page__eyebrow">Site Audit Report</div>
+      <h1 class="page__title">Site Audit</h1>
+      <p class="page__title-sub">decorative-urns.com</p>
+    </div>
+  </header>
+
+  <section class="page__body">
+    <span class="section-label">This Report Covers</span>
+    <div class="cover-sections">
+      <span class="cover-section-badge" style="--badge-color:#1e293b">Executive Summary</span>
+      <span class="cover-section-badge" style="--badge-color:#1B3BEE">SEO Audit</span>
+      <span class="cover-section-badge" style="--badge-color:#EA580C">Conversion Rate Optimisation</span>
+      <span class="cover-section-badge" style="--badge-color:#059669">Site Architecture</span>
+      <span class="cover-section-badge" style="--badge-color:#0891B2">AI SEO</span>
+      <span class="cover-section-badge" style="--badge-color:#0f172a">Recommendations</span>
+    </div>
+    <div class="accent-bar"><span></span><span></span><span></span></div>
+    <p class="cover-tagline">Prepared by Comerix.</p>
+  </section>
+
+  <footer class="page__footer">
+    <span class="page__footer-brand">comerix</span>
+    <span class="page__footer-num">01</span>
+  </footer>
+</article>
+
+<!-- ═══════════════════════════════════════════════════════
+     PAGES 3+ — Report Sections (injected by build.js)
+═══════════════════════════════════════════════════════ -->
+
+<article class="page" id="sec-summary">
+  <header class="page__header page__header--sm" style="--sec-color:#1e293b">
+    <div class="page__topbar">
+      <span class="wordmark">comerix</span>
+      <span class="meta">Executive Summary</span>
+    </div>
+    <div class="page__title-wrap page__title-wrap--sm">
+      <div class="page__eyebrow">Site Audit Report</div>
+      <h1 class="page__title page__title--sm">Executive Summary</h1>
+    </div>
+  </header>
+
+  <section class="page__body sec-body" id="body-summary">
+    <!-- markdown rendered by marked.js -->
+  </section>
+
+  <footer class="page__footer">
+    <span class="page__footer-brand">comerix</span>
+    <span class="page__footer-num">02</span>
+  </footer>
+</article>
+
+<article class="page" id="sec-seo-audit">
+  <header class="page__header page__header--sm" style="--sec-color:#1B3BEE">
+    <div class="page__topbar">
+      <span class="wordmark">comerix</span>
+      <span class="meta">SEO Audit</span>
+    </div>
+    <div class="page__title-wrap page__title-wrap--sm">
+      <div class="page__eyebrow">Site Audit Report</div>
+      <h1 class="page__title page__title--sm">SEO Audit</h1>
+    </div>
+  </header>
+
+  <section class="page__body sec-body" id="body-seo-audit">
+    <!-- markdown rendered by marked.js -->
+  </section>
+
+  <footer class="page__footer">
+    <span class="page__footer-brand">comerix</span>
+    <span class="page__footer-num">03</span>
+  </footer>
+</article>
+
+<article class="page" id="sec-page-cro">
+  <header class="page__header page__header--sm" style="--sec-color:#EA580C">
+    <div class="page__topbar">
+      <span class="wordmark">comerix</span>
+      <span class="meta">Conversion Rate Optimisation</span>
+    </div>
+    <div class="page__title-wrap page__title-wrap--sm">
+      <div class="page__eyebrow">Site Audit Report</div>
+      <h1 class="page__title page__title--sm">Conversion Rate Optimisation</h1>
+    </div>
+  </header>
+
+  <section class="page__body sec-body" id="body-page-cro">
+    <!-- markdown rendered by marked.js -->
+  </section>
+
+  <footer class="page__footer">
+    <span class="page__footer-brand">comerix</span>
+    <span class="page__footer-num">04</span>
+  </footer>
+</article>
+
+<article class="page" id="sec-site-architecture">
+  <header class="page__header page__header--sm" style="--sec-color:#059669">
+    <div class="page__topbar">
+      <span class="wordmark">comerix</span>
+      <span class="meta">Site Architecture</span>
+    </div>
+    <div class="page__title-wrap page__title-wrap--sm">
+      <div class="page__eyebrow">Site Audit Report</div>
+      <h1 class="page__title page__title--sm">Site Architecture</h1>
+    </div>
+  </header>
+
+  <section class="page__body sec-body" id="body-site-architecture">
+    <!-- markdown rendered by marked.js -->
+  </section>
+
+  <footer class="page__footer">
+    <span class="page__footer-brand">comerix</span>
+    <span class="page__footer-num">05</span>
+  </footer>
+</article>
+
+<article class="page" id="sec-ai-seo">
+  <header class="page__header page__header--sm" style="--sec-color:#0891B2">
+    <div class="page__topbar">
+      <span class="wordmark">comerix</span>
+      <span class="meta">AI SEO</span>
+    </div>
+    <div class="page__title-wrap page__title-wrap--sm">
+      <div class="page__eyebrow">Site Audit Report</div>
+      <h1 class="page__title page__title--sm">AI SEO</h1>
+    </div>
+  </header>
+
+  <section class="page__body sec-body" id="body-ai-seo">
+    <!-- markdown rendered by marked.js -->
+  </section>
+
+  <footer class="page__footer">
+    <span class="page__footer-brand">comerix</span>
+    <span class="page__footer-num">06</span>
+  </footer>
+</article>
+
+<article class="page" id="sec-recommendations">
+  <header class="page__header page__header--sm" style="--sec-color:#0f172a">
+    <div class="page__topbar">
+      <span class="wordmark">comerix</span>
+      <span class="meta">Recommendations</span>
+    </div>
+    <div class="page__title-wrap page__title-wrap--sm">
+      <div class="page__eyebrow">Site Audit Report</div>
+      <h1 class="page__title page__title--sm">Recommendations</h1>
+    </div>
+  </header>
+
+  <section class="page__body sec-body" id="body-recommendations">
+    <!-- markdown rendered by marked.js -->
+  </section>
+
+  <footer class="page__footer">
+    <span class="page__footer-brand">comerix</span>
+    <span class="page__footer-num">07</span>
+  </footer>
+</article>
+
+<!-- marked.js -->
+<script src="https://cdn.jsdelivr.net/npm/marked@11/marked.min.js"></script>
+<script>
+var SECTIONS = [{"stem":"summary","content":"# Site Audit — decorative-urns.com\n\n**Site:** decorative-urns.com · Une Belle Vie Memorial Urns LLC\n**Platform:** Magento 2 · Family-owned, Colorado · Est. 2010\n**Niche:** Handcrafted cremation urns — adult, child, pet\n\n---\n\n## Scores at a Glance\n\n| Area | Status | Key Finding |\n|------|--------|-------------|\n| Technical SEO | ⚠️ Issues | Title duplication bug, blog missing from sitemap, no meta descriptions |\n| Schema Markup | ❌ None | Zero structured data detected across all page types |\n| Site Architecture | ⚠️ Messy | Pet Urns and Custom Urns each appear twice in nav; blog buried under About |\n| CRO — Homepage | ⚠️ Weak | 1 testimonial, keyword-list H1, hero carousel, no email capture |\n| CRO — Product Pages | ❌ Critical | Wrong review shown, 1 image per product, 2-sentence descriptions |\n| AI SEO | ❌ Invisible | No schema, no llms.txt, no author or dates, blog absent from sitemap |\n\n---\n\n## Three Things to Do This Week\n\nThese are pure configuration changes — no content writing, no development.\n\n**1. Fix title tag duplication**\nMagento > Stores > Configuration > Catalog > Search Engine Optimisation > Title Suffix. One field change fixes 120+ pages simultaneously.\n\n**2. Add blog posts to the XML sitemap**\n18+ live posts are effectively invisible to crawlers. Enable blog sitemap generation in the extension config, or create a `/blog-sitemap.xml` and reference it from the main sitemap.\n\n**3. Remove `Crawl-delay: 10` from robots.txt**\nOne line deletion. Bing and Perplexity respect this directive — they're currently rate-limited to 6 pages/minute.\n\n---\n\n## What's Working\n\n- **CANA and ICCFA memberships** — signals real memorial industry authority\n- **60-day money-back guarantee** — most urn retailers offer 30 days\n- **\"Connect with an Urn Curator\"** — human concierge support Amazon can't match\n- **Urn size calculator** — functional tool with clear value, rare among competitors\n- **Family-owned Colorado business** — emotional resonance for a grief-driven purchase\n- **AI bots not blocked** — GPTBot, ClaudeBot, PerplexityBot can all crawl freely\n- **Price transparency** — prices visible on homepage product cards\n\n---\n\n## Priority Order Across All Sections\n\n| # | Action | Section |\n|---|--------|---------|\n| 1 | Fix title suffix duplication | SEO |\n| 2 | Remove crawl-delay from robots.txt | SEO |\n| 3 | Add blog posts to sitemap + submit to GSC | SEO |\n| 4 | Fix wrong review on Azure product page | CRO |\n| 5 | Move phone number to header | CRO |\n| 6 | Deploy Organization + WebSite schema on homepage | Schema |\n| 7 | Create `/llms.txt` | AI SEO |\n| 8 | Write meta descriptions — category pages + top 20 products | SEO |\n| 9 | Fix product image alt text site-wide (CSV import) | SEO |\n| 10 | Rewrite hero headline + flip CTA hierarchy | CRO |\n| 11 | Add 3–5 homepage testimonials with real attribution | CRO |\n| 12 | Add author bylines + publication dates to all blog posts | SEO / AI SEO |\n| 13 | Deploy Product + BreadcrumbList schema on all product pages | Schema |\n| 14 | Add 5–10 product images to top 20 products | CRO |\n| 15 | Expand product descriptions to 80–150 words (top 20) | CRO / SEO |"},{"stem":"seo-audit","content":"# SEO Audit — decorative-urns.com\n\n**Date:** May 2026 · **Platform:** Magento 2\n\nThe site has genuine authority signals (CANA, ICCFA, BBB, family-owned) but several fixable technical issues hold it back. None of the critical items require content rewrites — they're configuration changes.\n\n---\n\n## Technical Findings\n\n### T1. Title Tag Duplication — \"Une Belle Vie Une Belle Vie\"\n**Impact:** High · **Pages affected:** All category and product pages\n\nEvery non-homepage page reads \"Une Belle Vie Une Belle Vie Memorial Urns\" — the store name and title suffix are both set to variations of \"Une Belle Vie,\" causing duplication on 120+ pages.\n\n**Fix:** Stores > Configuration > Catalog > Catalog > Search Engine Optimization > Title Suffix. Set to `| Une Belle Vie` or clear it. Ideal format: `[Page Name] | Une Belle Vie Memorial Urns`\n\n---\n\n### T2. Blog Posts Missing from XML Sitemap\n**Impact:** High · **Pages affected:** All content at /cremation-blog/\n\nThe sitemap contains 120+ product/category URLs but zero blog posts. 18+ live pages are invisible to crawlers that use the sitemap for discovery.\n\n**Fix:** Enable sitemap generation in the blog extension config (Magefan Blog / Aheadworks Blog), or create `/blog-sitemap.xml` and reference it from the main sitemap index. Submit updated sitemap in Google Search Console.\n\n---\n\n### T3. No Meta Descriptions on Any Page\n**Impact:** High · **Pages affected:** Site-wide\n\nEvery page auto-generates its SERP snippet. Start with category pages and top 20 products.\n\n| Page | Suggested Meta Description |\n|------|---------------------------|\n| Homepage | Handcrafted cremation urns for adults, children and pets. 100+ artistic designs in ceramic, glass, metal and wood. Free shipping. 60-day guarantee. Family owned since 2010. |\n| Adult Urns | Browse 60+ artistic adult cremation urns — ceramic, glass, wood and metal. Every urn ships free with a 60-day money-back guarantee. Made by artists, not funeral homes. |\n| Pet Urns | Unique cremation urns for dogs, cats and all pets. Artistic designs that honor your companion's personality. Free shipping, free returns, 60-day guarantee. |\n\n**Fix:** Add per-page descriptions in Magento's SEO tab. Bulk update products via CSV import.\n\n---\n\n### T4. Crawl Delay Set to 10 Seconds\n**Impact:** Medium-High · **Location:** robots.txt\n\nBing and Perplexity respect this directive — they're currently rate-limited to 6 pages/minute. Google ignores it but there's no reason to keep it.\n\n**Fix:** Remove `Crawl-delay: 10` from robots.txt.\n\n---\n\n### T5. Generic Alt Text on Product Images\n**Impact:** Medium · **Pages affected:** All product pages\n\nPrimary image alt text is `\"main product photo\"` across all products — affects both accessibility and image search ranking.\n\n**Fix:** Format: `[Product Name] — [Material] Cremation Urn — [Key Visual Detail]`. Update via Magento CSV product import (`small_image_label`, `base_image_label`, `thumbnail_label` columns).\n\n---\n\n### T6. Open Graph Tags Missing\n**Impact:** Medium · **Pages affected:** Site-wide\n\nWithout OG tags, social shares pull low-quality or incorrect images/text. Most Magento SEO extensions (Amasty, MageWorx) include OG tag generation.\n\n**Fix:** Add at minimum `og:title`, `og:description`, `og:image`, `og:type`, `og:url` to all pages.\n\n---\n\n## On-Page Findings\n\n### O1. H1 Tags Too Thin on Category Pages\n**Impact:** Medium\n\nAdult Urns and Keepsake Urns use 2-word H1s. Pet Urns shows the right pattern.\n\n- Adult Urns: `\"Adult Cremation Urns — Artistic Memorials for Your Loved One\"`\n- Keepsake Urns: `\"Keepsake Urns — Share a Portion of Remains with Family\"`\n- Child Urns: `\"Child & Infant Cremation Urns — Gentle Memorials for Young Lives\"`\n\n---\n\n### O2. Category Page Descriptions Are Very Thin\n**Impact:** Medium\n\nAdult Urns intro is 1 sentence. Each category page needs 150–300 words covering: what makes this category distinct, material options, size range, price range, and a \"how to choose\" paragraph.\n\n---\n\n### O3. Blog E-E-A-T Concerns\n**Impact:** Medium-High\n\n- \"Grief at Work\" is attributed to `\"Jenny Han, writer and editor at Best Essay Writing Service\"` — a low-authority signal for a grief-care niche\n- No publication dates visible on any post\n- No author attribution on most posts\n- Posts run 800–1,100 words — thin for competitive grief/cremation topics\n\n**Fix:** Remove or rewrite the \"Best Essay Writing Service\" content. Add publication dates and named author attribution (leverage CANA/ICCFA credentials). Aim for 1,500–2,500 words on key posts.\n\n---\n\n## Content Gaps\n\nNone of these high-intent queries are covered on the site. Each is a pre-purchase research query:\n\n| Query | Priority |\n|-------|---------|\n| \"what size cremation urn do I need\" | High — natural fit for existing size calculator |\n| \"how to choose a cremation urn\" | High — top-of-funnel guide |\n| \"ceramic vs glass cremation urn\" | Medium — comparison content earns ~33% of AI citations |\n| \"how much do cremation urns cost\" | Medium — pricing guide |\n\n---\n\n## Prioritized Action Plan\n\n**Critical (1–2 weeks)**\n1. Fix title tag duplication — single Magento config change\n2. Add blog posts to sitemap — enable blog extension sitemap generation\n3. Remove crawl-delay from robots.txt — one line deletion\n\n**High Priority (1 month)**\n4. Write meta descriptions for all category pages and top 20 products\n5. Fix primary product image alt text via CSV bulk update\n6. Strengthen H1s on Adult, Keepsake, and Child urn category pages\n\n**Medium Priority (next quarter)**\n7. Expand category page descriptions to 150–300 words each\n8. Remove or rewrite the \"Best Essay Writing Service\" blog post\n9. Add publication dates and author attribution to all blog posts\n10. Implement Open Graph tags via Magento SEO extension"},{"stem":"page-cro","content":"# CRO Audit — decorative-urns.com\n\n**Date:** May 2026 · **Pages audited:** Homepage · Azure product page · **Platform:** Magento 2\n\n---\n\n## Scorecards\n\n**Homepage**\n\n| Element | Status | Notes |\n|---------|--------|-------|\n| Value proposition clarity | ⚠️ Weak | H1 is an SEO keyword list, not a customer benefit |\n| Hero CTA | ⚠️ Misaligned | Pushes custom urns; most visitors want to browse |\n| Social proof | ❌ Critical gap | 1 testimonial, no review counts |\n| Trust signals | ✅ Strong | BBB, CANA, ICCFA, 60-day guarantee |\n| Email capture | ❌ Missing | No path for visitors not ready to buy |\n\n**Azure Product Page**\n\n| Element | Status | Notes |\n|---------|--------|-------|\n| Product description | ❌ Critical | 2 sentences — no story, no differentiation |\n| Product images | ❌ Critical | 1 image only |\n| Reviews | ❌ Broken | Wrong product's review shown (pet urn on human urn page) |\n| Specs visibility | ⚠️ Gated | Dimensions hidden until size is selected |\n| Personalization upsell | ❌ Missing | Not surfaced on page |\n| Related products | ⚠️ Mismatched | Surfaces $475–$625 items for a $35–$125 product |\n\n---\n\n## Critical Issues — Fix First\n\n### 1. Wrong review shown on Azure product page\n\nThe only review on Azure is for the **Pawsitive Reflection Pet Urn** (\"Received our…precious Yorkie, Gladys Marie\"). A visitor considering a brass urn for a human loved one is reading about someone's Yorkshire Terrier. This actively damages trust.\n\n**Fix:** Filter reviews to product-specific only, or blank the section until Azure-specific reviews exist.\n\n---\n\n### 2. One product image on Azure\n\nAn emotionally significant online purchase needs more than one image. Customers need: multiple angles, close-up of gold etching, both size variants side-by-side, and a lifestyle shot on a mantle.\n\n**Industry benchmark:** Top-converting urn retailers show 6–10 images per product.\n\n---\n\n### 3. Product description is 2 sentences\n\nThe current description covers the object but not the experience, craftsmanship, or who it's for. Expand to 80–150 words covering: material, craftsmanship, visual story, size/capacity context, and buyer fit.\n\n---\n\n### 4. Homepage hero headline is a keyword list\n\n**Current H1:** \"Cremation Urns for Ashes: Funeral, Burial & Memorial\"\n\nThis is SEO copy, not a value proposition. The brand name — Une Belle Vie, \"A Beautiful Life\" — is far more evocative than the headline uses. The genuine differentiator (handcrafted artistic urns vs. generic funeral home metal cylinders) is never surfaced.\n\n**Alternatives to test:**\n- *\"Urns as Unique as the Life They Honor\"* — Handcrafted cremation urns for adults, children, and pets.\n- *\"A Beautiful Resting Place for a Beautiful Life\"* — Artistic urns you won't find at a funeral home. Free shipping. 60-day guarantee.\n\n---\n\n## High-Impact Changes\n\n### 5. Fix the hero CTA hierarchy\n\n**Current primary CTA:** \"Create a Custom Memorial Urn\" (high-commitment, first-visit action)\n**Current secondary:** \"Or, explore our in-stock artistic cremation urns\" (framed as the lesser path)\n\nMost first-time visitors are in browse mode. Flip the hierarchy: **Primary** → \"Browse Cremation Urns\"; **Secondary** → \"Create a Custom Urn\" (smaller).\n\n---\n\n### 6. Add substantial social proof — homepage\n\nOne testimonial (about a pet urn) is not enough for a $100–$2,300 grief-driven purchase.\n\n- Add review count + aggregate rating near the hero: \"Trusted by 12,000+ families ★★★★★\"\n- Add 3–5 testimonials covering adult, pet, and custom urns — with full name, city, and photo\n- Full attribution (\"Susan M., Denver CO\") converts significantly better than initials only\n\n---\n\n### 7. Move phone number to the header\n\n877.249.7735 is buried in the size calculator section. For a grief-driven purchase, visible phone access is a major trust signal. Add to the top header bar on all pages.\n\n---\n\n### 8. Show size/capacity table statically on product pages\n\nSelecting a size is required to see dimensions and capacity — but capacity determines whether the product works for the buyer's situation. Add a static comparison table below the size selector showing capacity, dimensions, price, and intended use (adult vs. keepsake).\n\n---\n\n### 9. Add delivery timeframe on homepage and product pages\n\n\"Free ground shipping\" doesn't answer \"when will it arrive?\" — the urgent question for someone purchasing days after a loss.\n\nAdd \"Ships in 1–2 business days\" adjacent to the shipping badge on the homepage and near the Add to Cart button on product pages.\n\n---\n\n### 10. Surface personalization as an inline upsell on product pages\n\nEngraving is a top-level nav category but is never mentioned on individual product pages. Add a short upsell block below the size selector: \"Add Personalization — from $XX · Engrave a name, date, or short message.\"\n\n---\n\n### 11. Fix related products algorithm on Azure\n\nAzure ($35–$125) currently surfaces Field of Dreams ($625), Howling at the Moon ($505), and Final Concerto ($475+) — 5–13x the price. This creates price shock.\n\n**Fix:** Filter by similar price range (±50%), same color family, same buyer type (adult vs. pet).\n\n---\n\n### 12. Add email capture for non-ready visitors\n\nMany visitors are in early research mode. Add an exit-intent or scroll-triggered offer: \"Need help choosing? Get our free Urn Selection Guide — what to consider, what questions to ask, and how to choose the right size.\"\n\n---\n\n## What's Working — Keep\n\n- **Urn size calculator** — genuine differentiator; consider surfacing it higher\n- **60-day guarantee** — unusually generous (most competitors offer 30 days); deserves headline placement\n- **CANA + ICCFA memberships** — high relevance to informed buyers\n- **\"Connect with an Urn Curator\"** — the site's best differentiator; needs elevation above the fold\n- **Price transparency** on homepage product cards — right call for this price range"},{"stem":"site-architecture","content":"# Site Architecture Review — decorative-urns.com\n\n**Date:** May 2026 · **Platform:** Magento 2\n\n---\n\n## What's Working\n\n- Clear top-level product categories (adult, child, pet, keepsake)\n- Two useful browsing axes: by material and by theme\n- Blog exists and is organized into categories\n- Utility nav (size calculator, phone, search) is accessible\n\n---\n\n## What's Broken\n\n| Problem | Impact |\n|---------|--------|\n| Pet Urns appears in nav **twice** (top-level + under Cremation Urns) | User confusion, nav clutter |\n| Custom Urns appears in nav **twice** (top-level + under Cremation Urns) | Duplicate entries waste nav real estate |\n| Blog is buried under **About > Cremation Resources and Articles** | Editorial content invisible to most visitors |\n| `/adult-urns/all-adult-urns/` subcategory is redundant | Splits PageRank between parent and identical child |\n| \"Eric Cares\" in About dropdown | Opaque label — users don't click what they don't understand |\n| \"Strange But True\" blog category | Not SEO-friendly, doesn't signal value |\n| No dedicated educational/resource section | Misses high-intent research traffic |\n| 7 primary nav items | One over the recommended maximum |\n\n---\n\n## Recommended Navigation Structure\n\n**5 primary items + CTA button** (replaces current 7):\n\n| Position | Label | Key Change |\n|----------|-------|-----------|\n| 1 | Shop Urns | Replaces \"Cremation Urns\" — removes Pet Urns duplicate |\n| 2 | Browse by Style | Merges Materials + Themes into one dropdown |\n| 3 | Custom Urns | Single top-level entry — remove from Cremation Urns dropdown too |\n| 4 | **Learn** *(new)* | Surfaces blog + FAQs; pulls blog out of About |\n| 5 | About | Rename \"Eric Cares\" → \"Customer Care\"; move Contact here |\n| 6 | Browse All Urns | Right-aligned CTA button |\n\n**Items to remove from primary nav:**\n- Standalone Pet Urns (keep only under Shop Urns)\n- Standalone Custom Urns duplicate (keep only under Shop Urns)\n- Contact as a top-level item (move to About dropdown + footer)\n\n---\n\n## Implementation Plan\n\n### Phase 1 — Navigation Fixes (no URL changes, no redirects)\n1. Remove duplicate \"Custom Urns\" from top-level nav\n2. Remove duplicate \"Pet Urns\" from top-level nav\n3. Add \"Learn\" section to nav with blog and FAQ links\n4. Rename \"Eric Cares\" → \"Customer Care\" in About dropdown\n5. Move Contact into About dropdown\n\n### Phase 2 — URL Cleanup (low redirect risk)\n6. Redirect `/adult-urns/all-adult-urns/` → `/adult-urns/` (consolidate PageRank)\n7. Create `/faqs/` as top-level page and redirect existing FAQ location\n8. Create `/about/` page — currently returns 404\n9. Rename blog category `/cremation-blog/about-cremation/` → `/cremation-blog/cremation-information/` with 301 redirect\n\n### Phase 3 — New Educational Content Pages\n10. Create `/cremation-guide/` hub with child pages targeting high-intent queries:\n    - `/cremation-guide/cremation-urn-size-guide/` — complements the size calculator\n    - `/cremation-guide/how-to-choose-a-cremation-urn/` — top-of-funnel guide\n    - `/cremation-guide/types-of-cremation-urns/` — informational"},{"stem":"ai-seo","content":"# AI SEO Audit — decorative-urns.com\n\n**Date:** May 2026\n\n---\n\n## Status at a Glance\n\n| Signal | Status |\n|--------|--------|\n| AI bots blocked in robots.txt | ✅ None blocked |\n| Blog exists with relevant content | ✅ 18+ pages across 8 categories |\n| Blog posts in sitemap | ❌ Missing entirely |\n| Schema markup (Product/Article/FAQ) | ❌ None found anywhere |\n| Author attribution on blog posts | ❌ None |\n| Publication / \"last updated\" dates | ❌ None visible |\n| FAQ sections in articles or categories | ❌ None |\n| llms.txt context file | ❌ Missing |\n| Industry trust signals | ✅ BBB, CANA, ICCFA, Norton |\n\n---\n\n## Critical Issues\n\n### 1. Blog posts are invisible to AI crawlers\n\nThe sitemap contains 120+ product/category URLs but zero blog posts. AI crawlers use sitemaps as their primary discovery layer. All content at `/cremation-blog/` is effectively invisible unless crawlers happen to follow internal links.\n\n**Fix:** Add all blog posts to the sitemap via the blog extension's sitemap settings or a separate blog sitemap index.\n\n---\n\n### 2. No schema markup anywhere\n\nNot a single `@type` was found on any page. This is the largest single AI SEO gap — content with schema shows 30–40% higher AI citation rates.\n\n| Page Type | Schema to Add | Priority |\n|-----------|--------------|---------|\n| Homepage | `Organization` with address, phone, certifications | High |\n| Product pages | `Product` with price, description, AggregateRating | Critical |\n| Blog posts | `Article` or `BlogPosting` with author, datePublished | Critical |\n| Category pages | `ItemList` | High |\n| Any page with Q&A | `FAQPage` | High |\n\n---\n\n### 3. No author attribution — no E-E-A-T\n\nBoth blog posts checked have no author name, no credentials, no bio. For a sensitive niche covering death, grief, and end-of-life planning, AI systems heavily weight E-E-A-T.\n\n**Fix:** Add a named author with credentials to every post. With CANA/ICCFA memberships, genuine industry expertise already exists — surface it. Format: *\"Written by [Name], member of the Cremation Association of North America.\"* This is a +25–30% citation boost per the Princeton GEO study.\n\n---\n\n### 4. No dates on any content\n\nNo publication date or \"last updated\" date found anywhere. AI systems deprioritize undated content as potentially stale.\n\n**Fix:** Add `datePublished` and `dateModified` to all blog posts — both in visible HTML and schema markup.\n\n---\n\n## High-Impact Improvements\n\n### 5. Add FAQ sections to key pages\n\nNo FAQ sections were found anywhere. FAQs are the single highest-extraction-rate content block for AI systems — they're already structured as Q&A pairs.\n\n**Highest-value targets:**\n- Category pages: \"What size urn do I need?\", \"What's the difference between ceramic and glass urns?\", \"Can I personalize a cremation urn?\"\n- Blog posts: Add 3–5 FAQs at the end of each article\n- The site's `/faq/` returns 404 — build it or redirect\n\n---\n\n### 6. Create `/llms.txt`\n\nA plain-text file at the site root that gives AI systems a structured overview of the business, product categories, and key URLs. Takes 30 minutes to create and signals intent to AI crawlers.\n\n---\n\n### 7. Blog content quality gaps\n\nThe blog has good topic coverage but weak AI extractability:\n\n- No statistics — cite NFDA grief data, funeral industry reports\n- No comparison tables — \"burial options\" article lists choices in prose; a table is 3x more extractable\n- No definition blocks — no post opens with a clear, self-contained definition\n- Posts average ~1,100 words — comprehensive guides (2,000–3,000 words) get cited far more\n\nThe best-structured article currently is \"How to Plan Your Own Funeral\" — it cites the FTC, Nationwide, and HG.org. Apply that pattern to all posts.\n\n---\n\n## Priority Order\n\n1. **Add blog posts to sitemap** — quick win, no content work required\n2. **Add author + dates to all blog posts** — 1 hour of updates, major E-E-A-T gain\n3. **Implement Product + Article schema** — highest citation ROI\n4. **Add FAQPage schema + FAQ sections** to top 5 blog posts and 3 category pages\n5. **Create `llms.txt`** — 30-minute task\n6. **Write urn size guide** and **material comparison page** — highest new-content ROI"},{"stem":"recommendations","content":"# Recommendations\n\nRecommended section:\n\n* Abandoner cart  \n  * We can implement this via Klaviyo integration or 3rd party extension: [https://amasty.com/abandoned-cart-email-for-magento-2.html](https://amasty.com/abandoned-cart-email-for-magento-2.html)\n\n* Setup Cron Scheduler monitoring extension  \n* Do we have any product feed extension? I can not find it in magento admin  \n* Newsletter subscription form is missing  \n* Migrate Search engine from Elasticsearch to OpenSearch  \n  * Elasticsearch will be/already deprecated and won’t be supported by Adobe in new magento releases. We need to migrate to OpenSearch engine.\n\n* Social login extension —  \n  * Allows to create account / login on website using gmail / facebook / twitter accounts  \n  * [https://swissuplabs.com/magento-2-social-login.html](https://swissuplabs.com/magento-2-social-login.html)  \n* Search autocomplete/autosuggest — Current search input is bad. It does not autosuggests any categories/product.  \n  * I’d recommend to install this extension to improve customer search experience [https://swissuplabs.com/ajax-search-and-autocomplete-extension-for-magento-2.html](https://swissuplabs.com/ajax-search-and-autocomplete-extension-for-magento-2.html)\n"}];
+
+marked.use({ gfm: true, breaks: false });
+
+function badgeClass(text) {
+  switch (text.toLowerCase().trim()) {
+    case 'critical':   return 'badge-critical';
+    case 'high':       return 'badge-high';
+    case 'medium':
+    case 'low-medium': return 'badge-medium';
+    case 'low':        return 'badge-low';
+    default:           return null;
+  }
+}
+
+SECTIONS.forEach(function(s) {
+  var el = document.getElementById('body-' + s.stem);
+  if (!el) return;
+  el.innerHTML = marked.parse(s.content);
+
+  el.querySelectorAll('td').forEach(function(td) {
+    var text = td.textContent.trim();
+    var cls  = badgeClass(text);
+    if (cls) {
+      td.innerHTML = '<span class="' + cls + '">' + text + '</span>';
+      return;
+    }
+    td.querySelectorAll('strong').forEach(function(strong) {
+      var c = badgeClass(strong.textContent);
+      if (c) {
+        var badge = document.createElement('span');
+        badge.className = c;
+        badge.textContent = strong.textContent;
+        strong.replaceWith(badge);
+      }
+    });
+  });
+});
+</script>
+</body>
+</html>
